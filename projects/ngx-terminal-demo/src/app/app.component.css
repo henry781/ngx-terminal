@@ -1,0 +1,11 @@
+:host {
+  height: 100%;
+}
+
+.ngx-terminal {
+  height: 100%;
+}
+
+::ng-deep .error {
+  color: red;
+}

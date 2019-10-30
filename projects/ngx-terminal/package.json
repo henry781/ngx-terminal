@@ -1,0 +1,24 @@
+{
+  "name": "@henry781/ngx-terminal",
+  "version": "0.1.0",
+  "scripts": {
+    "ng": "ng",
+    "build": "ng build",
+    "postbuild": "cd dist && npm link && cp ../../../README.MD .",
+    "test": "ng test",
+    "lint": "ng lint",
+    "e2e": "ng e2e",
+    "prerelease-patch": "npm version patch && npm run lint && npm run build",
+    "release-patch": "cd ./dist && npm publish",
+    "prerelease-minor": "npm version minor && npm run lint && npm run build",
+    "release-minor": "cd ./dist && npm publish"
+  },
+  "peerDependencies": {
+    "@angular/common": "^8.2.11",
+    "@angular/core": "^8.2.11",
+    "@angular/flex-layout": "^8.0.0-beta.27",
+    "@angular/cdk": "^8.2.3",
+    "ansi_up": "^4.0.4"
+  },
+  "dependencies": {}
+}

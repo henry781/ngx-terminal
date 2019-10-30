@@ -1,27 +1,68 @@
-# MyWorkspace
+# NGX Terminal
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.3.14.
+This component is a basic easy to use fake terminal for Angular.
 
-## Development server
+![](demo.gif)
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+## Usage
 
-## Code scaffolding
+component.html
+```
+<ngx-terminal [login]="login" [server]="server" (command)="onCommand($event)"></ngx-terminal>
+```
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+component.ts
+```
+  public server = 'localhost';
+  public login = 'henry781';
 
-## Build
+  onCommand(prompt: TerminalPrompt) {
+    switch (prompt.getCommand()) {
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+      case 'whoami':
+        prompt.response = prompt.login;
+        prompt.responseComplete();
+        break;
 
-## Running unit tests
+      default:
+        prompt.response = 'unknown command';
+        prompt.responseComplete();
+    }
+  }
+```
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+module.ts
+```
+@NgModule({
+  declarations: [
+    AppComponent
+  ],
+  imports: [
+    BrowserModule,
+    TerminalModule,
+  ],
+  providers: [],
+  bootstrap: [AppComponent]
+})
+export class AppModule {
+}
+```
 
-## Running end-to-end tests
+## Features
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+### Autoscroll
 
-## Further help
+This terminal supports autoscroll when the scroll position is at the end of the page.
+It can be disabled using the input `autoscroll="false"`.
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+### History (Up & Down)
+
+Keyboard keys &#8593; and &#8595; allows to navigate in the command history.
+
+### Ansi color
+
+There is a peer dependency with lib [ansi_up](https://www.npmjs.com/package/ansi-up). 
+
+### Asynchronous response
+
+### HTML response

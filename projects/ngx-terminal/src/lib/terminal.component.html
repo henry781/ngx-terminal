@@ -1,0 +1,25 @@
+<div class="terminal" (click)="onTerminalClicked()" #terminalContainer>
+  <div class="terminal-output" spellcheck="false">
+
+    <pre [innerHTML]="intro"></pre>
+
+    <div *ngFor="let prompt of stack">
+
+      <!-- prompt -->
+      <div *ngIf="!prompt.isEmpty()" fxLayout="row" fxLayoutAlign=" start">
+        <span class="terminal-prompt">{{prompt.login}}@{{prompt.server}} $</span>
+        <textarea fxFlex class="terminal-input" [(ngModel)]="prompt.text" #terminalInput
+                  (keydown)="onKeyPressed($event)"
+                  [disabled]="prompt.locked"></textarea>
+      </div>
+      <!-- end prompt -->
+
+      <!-- response -->
+      <div *ngIf="prompt.response">
+        <pre [innerHTML]="prompt.response"></pre>
+      </div>
+      <!-- end response -->
+    </div>
+
+  </div>
+</div>
