@@ -4,7 +4,7 @@
   "scripts": {
     "ng": "ng",
     "build": "ng build",
-    "postbuild": "cd dist && npm link && cp ../../../README.MD .",
+    "postbuild": "cd dist && npm link && cp ../../../README.MD . && cp ..",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
@@ -20,5 +20,15 @@
     "@angular/cdk": "^8.2.3",
     "ansi_up": "^4.0.4"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/henry781/ngx-terminal.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/henry781/ngx-terminal/issues"
+  },
+  "homepage": "https://github.com/henry781/ngx-terminal#readme",
   "dependencies": {}
 }

@@ -2,7 +2,7 @@
 
 This component is a basic easy to use fake terminal for Angular.
 
-![](demo.gif)
+![](https://user-images.githubusercontent.com/26506130/68243301-83457500-0012-11ea-8c2c-4c92eafb3020.gif)
 
 ## Usage
 
