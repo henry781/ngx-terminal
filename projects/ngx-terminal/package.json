@@ -4,7 +4,7 @@
   "scripts": {
     "ng": "ng",
     "build": "ng build",
-    "postbuild": "cd dist && npm link && cp ../../../README.MD . && cp ..",
+    "postbuild": "cd dist && npm link && cp ../../../README.MD .",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
