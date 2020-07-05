@@ -59,7 +59,7 @@ export class TerminalComponent implements OnInit, OnDestroy {
   @Output() public command = new EventEmitter<TerminalPrompt>();
 
   @ViewChildren('terminalInput') private terminalInputs: QueryList<ElementRef>;
-  @ViewChild('terminalContainer', {read: ElementRef, static: false}) private terminalContainer: ElementRef;
+  @ViewChild('terminalContainer', { read: ElementRef }) private terminalContainer: ElementRef;
 
   public stack: TerminalPrompt[] = [];
   public currentPrompt: TerminalPrompt;
