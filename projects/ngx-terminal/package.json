@@ -30,5 +30,7 @@
     "url": "https://github.com/henry781/ngx-terminal/issues"
   },
   "homepage": "https://github.com/henry781/ngx-terminal#readme",
-  "dependencies": {}
+  "dependencies": {
+    "tslib": "^2.0.0"
+}
 }
