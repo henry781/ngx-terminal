@@ -14,10 +14,10 @@
     "release-minor": "cd ./dist && npm publish"
   },
   "peerDependencies": {
-    "@angular/common": "^8.2.11",
-    "@angular/core": "^8.2.11",
-    "@angular/flex-layout": "^8.0.0-beta.27",
-    "@angular/cdk": "^8.2.3",
+    "@angular/common": "~10.0.3",
+    "@angular/core": "~10.0.3",
+    "@angular/flex-layout": "^10.0.0-beta.32",
+    "@angular/cdk": "^10.0.1",
     "ansi_up": "^4.0.4"
   },
   "repository": {
@@ -32,5 +32,5 @@
   "homepage": "https://github.com/henry781/ngx-terminal#readme",
   "dependencies": {
     "tslib": "^2.0.0"
-}
+  }
 }

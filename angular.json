@@ -14,13 +14,13 @@
           "options": {
             "tsConfig": "projects/ngx-terminal/tsconfig.lib.json",
             "project": "projects/ngx-terminal/ng-package.json"
-          }
-        ,          "configurations": {
+          },
+          "configurations": {
             "production": {
               "tsConfig": "projects/ngx-terminal/tsconfig.lib.prod.json"
             }
           }
-},
+        },
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
@@ -157,6 +157,7 @@
           }
         }
       }
-    }},
+    }
+  },
   "defaultProject": "ngx-terminal"
 }
