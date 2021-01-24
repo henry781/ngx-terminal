@@ -65,4 +65,6 @@ There is a peer dependency with lib [ansi_up](https://www.npmjs.com/package/ansi
 
 ### Asynchronous response
 
+### Cancel with ctrl+c
+
 ### HTML response
