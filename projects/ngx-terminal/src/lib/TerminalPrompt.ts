@@ -38,6 +38,9 @@ export class TerminalPrompt {
 
   private _responseChanged = new EventEmitter<void>();
 
+  private _cancel = new EventEmitter<void>();
+
+
   private _response = '';
 
   public get response(): string {
@@ -83,6 +86,13 @@ export class TerminalPrompt {
     this._responseComplete.next();
   }
 
+  /**
+   * Cancel
+   */
+  public cancel() {
+    this._cancel.next();
+  }
+
   public lock() {
     this._locked = true;
   }
@@ -99,6 +109,10 @@ export class TerminalPrompt {
    */
   public onResponseChanged(): EventEmitter<void> {
     return this._responseChanged;
+  }
+
+  public onCancel(): EventEmitter<void> {
+    return this._cancel;
   }
 
   /**

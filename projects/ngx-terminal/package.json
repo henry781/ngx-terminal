@@ -3,7 +3,9 @@
   "version": "0.1.0",
   "scripts": {
     "ng": "ng",
+    "clean": "rm -rf dist",
     "build": "ng build",
+    "watch": "ng build --watch",
     "build-prod": "ng build --prod",
     "postbuild": "cd dist && npm link && cp ../../../README.MD .",
     "test": "ng test",

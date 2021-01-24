@@ -1,5 +1,5 @@
-<div class="terminal" (click)="onTerminalClicked()" #terminalContainer>
-  <div class="terminal-output" spellcheck="false">
+<div class="ngx-terminal" #terminalContainer>
+  <div class="ngx-terminal-output" spellcheck="false">
 
     <pre [innerHTML]="intro"></pre>
 
@@ -7,9 +7,8 @@
 
       <!-- prompt -->
       <div *ngIf="!prompt.isEmpty()" fxLayout="row" fxLayoutAlign=" start">
-        <span class="terminal-prompt">{{prompt.login}}@{{prompt.server}} $</span>
-        <textarea fxFlex class="terminal-input" [(ngModel)]="prompt.text" #terminalInput
-                  (keydown)="onKeyPressed($event)"
+        <span class="ngx-terminal-prompt">{{prompt.login}}@{{prompt.server}} $</span>
+        <textarea fxFlex class="ngx-terminal-input" [(ngModel)]="prompt.text" #terminalInput
                   [disabled]="prompt.locked"></textarea>
       </div>
       <!-- end prompt -->
@@ -23,3 +22,4 @@
 
   </div>
 </div>
+

@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
 import {TerminalPrompt} from '@henry781/ngx-terminal';
 import {from, of} from 'rxjs';
-import {concatMap, delay} from 'rxjs/operators';
+import {concatMap, delay, takeUntil} from 'rxjs/operators';
 
 @Component({
   selector: 'app-root',
@@ -120,6 +120,7 @@ export class AppComponent {
         from(responseArr)
           .pipe(
             concatMap(val => of(val).pipe(delay(100))),
+            takeUntil(prompt.onCancel())
           )
           .subscribe(
             r => prompt.appendAnsiResponse(r),

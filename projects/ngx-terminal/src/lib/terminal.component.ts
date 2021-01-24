@@ -2,14 +2,15 @@ import {
   Component,
   ElementRef,
   EventEmitter,
-  HostBinding,
+  HostListener,
   Input,
   OnDestroy,
   OnInit,
   Output,
   QueryList,
   ViewChild,
-  ViewChildren
+  ViewChildren,
+  ViewEncapsulation
 } from '@angular/core';
 import {TerminalPrompt} from './TerminalPrompt';
 import {Subscription} from 'rxjs';
@@ -17,17 +18,17 @@ import {Subscription} from 'rxjs';
 @Component({
   selector: 'ngx-terminal',
   templateUrl: './terminal.component.html',
-  styleUrls: ['./terminal.component.scss']
+  styleUrls: ['./terminal.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class TerminalComponent implements OnInit, OnDestroy {
 
   private static KEYCODES = {
     ENTER: 13,
     ARROW_DOWN: 40,
-    ARROW_UP: 38
+    ARROW_UP: 38,
+    C: 67
   };
-
-  @HostBinding('class') class = 'ngx-terminal';
 
   /**
    * Autoscroll
@@ -59,7 +60,7 @@ export class TerminalComponent implements OnInit, OnDestroy {
   @Output() public command = new EventEmitter<TerminalPrompt>();
 
   @ViewChildren('terminalInput') private terminalInputs: QueryList<ElementRef>;
-  @ViewChild('terminalContainer', { read: ElementRef }) private terminalContainer: ElementRef;
+  @ViewChild('terminalContainer', {read: ElementRef}) private terminalContainer: ElementRef;
 
   public stack: TerminalPrompt[] = [];
   public currentPrompt: TerminalPrompt;
@@ -76,6 +77,41 @@ export class TerminalComponent implements OnInit, OnDestroy {
    * Constructor
    */
   constructor() {
+  }
+
+  @HostListener('document:keydown', ['$event'])
+  onKeydownHandler(event: KeyboardEvent) {
+    this.focusCurrentPrompt();
+
+    if (event.ctrlKey && event.keyCode === TerminalComponent.KEYCODES.C
+      && this.currentPrompt.locked) {
+      this.currentPrompt.cancel();
+    }
+
+    switch (event.keyCode) {
+
+      case TerminalComponent.KEYCODES.ENTER:
+        event.preventDefault();
+        this.currentPrompt.lock();
+        this.command.next(this.currentPrompt);
+        break;
+
+      case TerminalComponent.KEYCODES.ARROW_UP:
+        event.preventDefault();
+        this.historyUp();
+        break;
+
+      case TerminalComponent.KEYCODES.ARROW_DOWN:
+        event.preventDefault();
+        this.historyDown();
+        break;
+
+      default:
+        // resize textarea with content
+        const target = event.target as HTMLTextAreaElement;
+        target.style.height = target.scrollHeight + 'px';
+        break;
+    }
   }
 
   /**
@@ -148,14 +184,6 @@ export class TerminalComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * On terminal clicked
-   */
-  public onTerminalClicked() {
-    // when user click inside terminal, we focus on current prompt
-    this.focusCurrentPrompt();
-  }
-
-  /**
    * Focus current prompt
    */
   public focusCurrentPrompt() {
@@ -163,6 +191,7 @@ export class TerminalComponent implements OnInit, OnDestroy {
     if (lastTerminalInput) {
       lastTerminalInput.nativeElement.focus();
     }
+    this.scrollBottom();
   }
 
   /**
@@ -200,38 +229,6 @@ export class TerminalComponent implements OnInit, OnDestroy {
     } else if (this.historyIndex === this.stack.length - 2) {
       this.historyIndex++;
       this.currentPrompt.text = this.historyCurrentValue;
-    }
-  }
-
-  /**
-   * On key pressed
-   * @param event keyboard
-   */
-  public onKeyPressed(event: KeyboardEvent) {
-
-    switch (event.keyCode) {
-
-      case TerminalComponent.KEYCODES.ENTER:
-        event.preventDefault();
-        this.currentPrompt.lock();
-        this.command.next(this.currentPrompt);
-        break;
-
-      case TerminalComponent.KEYCODES.ARROW_UP:
-        event.preventDefault();
-        this.historyUp();
-        break;
-
-      case TerminalComponent.KEYCODES.ARROW_DOWN:
-        event.preventDefault();
-        this.historyDown();
-        break;
-
-      default:
-        // resize textarea with content
-        const target = event.target as HTMLTextAreaElement;
-        target.style.height = target.scrollHeight + 'px';
-        break;
     }
   }
 }
